@@ -2,6 +2,11 @@
 
 # dependencies
 node_modules/
+/node_modules
+/vendor
+.env
+/storage/*.key
+/public/build
 
 # Expo
 .expo/
