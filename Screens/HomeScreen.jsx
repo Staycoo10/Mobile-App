@@ -1,11 +1,32 @@
-import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
-import { useState } from 'react';
+import { View, Text, StyleSheet, TextInput, Pressable, AppState } from 'react-native';
+import { useState, useEffect } from 'react';
 import Colors from '../Style/colors';
 import Dimensions from '../Style/dimensions';
 
-
 export default function HomeScreen({ navigation }) {
   const [city, setCity] = useState('Moldova');
+
+  // onCreate / onDestroy
+  useEffect(() => {
+    console.log('onCreate / component mounted');
+
+    return () => {
+      console.log('onDestroy / component unmounted');
+    };
+  }, []);
+
+  // onResume / onPause
+  useEffect(() => {
+    const subscription = AppState.addEventListener('change', state => {
+      if (state === 'active') {
+        console.log('onResume');
+      } else {
+        console.log('onPause');
+      }
+    });
+
+    return () => subscription.remove();
+  }, []);
 
   return (
     <View style={styles.container}>
@@ -19,12 +40,11 @@ export default function HomeScreen({ navigation }) {
       />
 
       <Pressable
-  style={styles.button}
-  onPress={() => navigation.navigate('Details', { city })}
->
-  <Text style={styles.buttonText}>Search</Text>
-</Pressable>
-
+        style={styles.button}
+        onPress={() => navigation.navigate('Details', { city })}
+      >
+        <Text style={styles.buttonText}>Search</Text>
+      </Pressable>
     </View>
   );
 }
@@ -33,7 +53,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    padding: 20,
+    padding: Dimensions.padding,
     marginTop: -120,
   },
   title: {
