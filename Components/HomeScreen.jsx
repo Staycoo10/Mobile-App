@@ -1,5 +1,8 @@
 import { View, Text, StyleSheet, TextInput, Pressable } from 'react-native';
 import { useState } from 'react';
+import Colors from '../Style/colors';
+import Dimensions from '../Style/dimensions';
+
 
 export default function HomeScreen({ navigation }) {
   const [city, setCity] = useState('Moldova');
@@ -41,14 +44,14 @@ const styles = StyleSheet.create({
   },
   input: {
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: Colors.input,
     padding: 12,
     borderRadius: 8,
     marginBottom: 15,
   },
   button: {
-    backgroundColor: '#4f8ef7',
-    padding: 15,
+    backgroundColor: Colors.primary,
+    padding: Dimensions.padding,
     borderRadius: 10,
   },
   buttonText: {
